@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<robot name="automodelcar">
+
+  <!-- ============================================== -->
+  <!-- MATERIALES VISUALES (Para Rviz o vista normal) -->
+  <!-- ============================================== -->
+  <material name="yellow"><color rgba="0.0 0.3 0.8 1.0"/></material>
+  <material name="gray"><color rgba="0.1 0.1 0.1 1.0"/></material>
+  <material name="red"><color rgba="0.8 0.0 0.0 1.0"/></material>
+
+  <!-- ============================================== -->
+  <!-- FOOTPRINT (Centro en el suelo)                 -->
+  <!-- ============================================== -->
+  <link name="base_footprint"/>
+  
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <!-- Elevamos el centro del chasis a la altura del eje de las llantas -->
+    <origin xyz="0 0 0.033" rpy="0 0 0"/> 
+  </joint>
+
+  <!-- ============================================== -->
+  <!-- CHASIS (Caja Azul)                             -->
+  <!-- ============================================== -->
+  <link name="base_link">
+    <visual>
+      <!-- Subimos la caja un poco para que no choque con el piso -->
+      <origin xyz="0 0 0.03" rpy="0 0 0"/>
+      <geometry><box size="0.30 0.15 0.06"/></geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.03" rpy="0 0 0"/>
+      <geometry><box size="0.30 0.15 0.06"/></geometry>
+    </collision>
+    <inertial>
+      <!-- Inercias estables para una caja de 2kg -->
+      <mass value="2.0"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    </inertial>
+  </link>
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+  <!-- ============================================== -->
+  <!-- RUEDAS (Cilindros Negros)                      -->
+  <!-- ============================================== -->
+  
+  <!-- RUEDA 1: Delantera Izquierda -->
+  <link name="wheel_1_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.033" length="0.02"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.033" length="0.02"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="wheel_1_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_1_link"/>
+    <origin xyz="0.13 0.11 0" rpy="0 0 0"/> 
+    <axis xyz="0 1 0"/> 
+  </joint>
+  <gazebo reference="wheel_1_link">
+    <material>Gazebo/Black</material>
+    <mu1>0.8</mu1>
+    <mu2>0.1</mu2>
+  </gazebo>
+
+  <!-- RUEDA 2: Delantera Derecha -->
+  <link name="wheel_2_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.033" length="0.02"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.033" length="0.02"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="wheel_2_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_2_link"/>
+    <origin xyz="0.13 -0.11 0" rpy="0 0 0"/> 
+    <axis xyz="0 1 0"/>
+  </joint>
+  <gazebo reference="wheel_2_link">
+    <material>Gazebo/Black</material>
+    <mu1>0.8</mu1>
+    <mu2>0.1</mu2>
+  </gazebo>
+
+  <!-- RUEDA 3: Trasera Izquierda -->
+  <link name="wheel_3_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.033" length="0.02"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.033" length="0.02"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="wheel_3_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_3_link"/>
+    <origin xyz="-0.13 0.11 0" rpy="0 0 0"/> 
+    <axis xyz="0 1 0"/>
+  </joint>
+  <gazebo reference="wheel_3_link">
+    <material>Gazebo/Black</material>
+    <mu1>0.8</mu1>
+    <mu2>0.1</mu2>
+  </gazebo>
+
+  <!-- RUEDA 4: Trasera Derecha -->
+  <link name="wheel_4_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.033" length="0.02"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.033" length="0.02"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="wheel_4_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_4_link"/>
+    <origin xyz="-0.13 -0.11 0" rpy="0 0 0"/> 
+    <axis xyz="0 1 0"/>
+  </joint>
+  <gazebo reference="wheel_4_link">
+    <material>Gazebo/Black</material>
+    <mu1>0.8</mu1>
+    <mu2>0.1</mu2>
+  </gazebo>
+
+  <!-- ============================================== -->
+  <!-- CÁMARA (Cajita Roja)                           -->
+  <!-- ============================================== -->
+  <link name="camera_optical_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.02 0.04 0.02"/></geometry>
+      <material name="red"/>
+    </visual>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <joint name="camera_optical_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_optical_link"/>
+    <origin xyz="0.15 0.0 0.08" rpy="0 0.1 0"/> 
+  </joint>
+  <gazebo reference="camera_optical_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <!-- ============================================== -->
+  <!-- PLUGINS DE GAZEBO SIM                          -->
+  <!-- ============================================== -->
+  
+  <gazebo reference="camera_optical_link">
+    <sensor name="camara_frontal" type="camera">
+      <camera>
+        <horizontal_fov>2.0944</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>50.0</far>
+        </clip>
+      </camera>
+      <always_on>1</always_on>
+      <update_rate>30</update_rate>
+      <visualize>true</visualize>
+      <topic>/camara/imagen_cruda</topic>
+    </sensor>
+  </gazebo>
+
+  <gazebo>
+    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+      <left_joint>wheel_1_joint</left_joint>
+      <left_joint>wheel_3_joint</left_joint>
+      <right_joint>wheel_2_joint</right_joint>
+      <right_joint>wheel_4_joint</right_joint>
+      <wheel_separation>0.22</wheel_separation>
+      <wheel_radius>0.033</wheel_radius>
+      <odom_publish_frequency>30</odom_publish_frequency>
+      <topic>/cmd_vel</topic>
+    </plugin>
+  </gazebo>
+
+</robot>
